@@ -1,6 +1,6 @@
 # A blog website for frontend
 
-This is the frontend for a Reddit-like blogging website built using React. The backend API is developed with Laravel.
+This is the frontend for a blogging website built using React. The backend API is developed with Laravel.
 
 Features
 User Authentication (Sign up, Login, Email verification)
