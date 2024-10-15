@@ -23,13 +23,13 @@ function Register() {
         password: data.password,
         password_confirmation: data.password_confirmation
       });
-      console.log(response);
+      // console.log(response);
       localStorage.setItem('token',response.data.token);
       toast.success(response.message);
       navigate('/email_verification');
     }
     catch (err) {
-      console.log(err.response);
+      // console.log(err.response);
       const errors = err.response.data.errors;
       const errormsg = Object.values(errors).flat();
       toast.error(err.response.data.message);
@@ -139,7 +139,7 @@ function Register() {
               >
                 {loading ? (<ClipLoader color="#ffffff" loading={loading} size={20} />) : ('Submit')}
               </button>
-              {errorBackend && <span className="text-red-500 text-center font-bold mt-1 input-error">{errorBackend}</span>}
+              {errorBackend && <span className="text-red-500 text-center text-sm mt-1 input-error">{errorBackend}</span>}
             </form>
 
           </div>

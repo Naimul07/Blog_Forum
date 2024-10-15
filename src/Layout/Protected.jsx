@@ -5,4 +5,6 @@ function Protected() {
   return auth ? <Outlet/> : <Navigate to= "/login"/>
 }
 
+
+
 export default Protected

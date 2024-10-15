@@ -1,16 +1,20 @@
 import Navbar from "../Components/Navbar"
-import { Toaster } from "react-hot-toast"
 import { Outlet } from "react-router-dom"
-import CartZustand from "../Practice/CartZustand"
 import Footer from "../Components/Footer"
+// import { ToastContainer } from "react-toastify"
+// import 'react-toastify/dist/ReactToastify.css';
+import { Toaster } from "react-hot-toast";
 function MainlayOut() {
+  
   return (
     <>
-    <Toaster/>
-    <Navbar/>
-    {/* <CartZustand/> */}
-    <Outlet/>
-    <Footer/>
+     <Toaster position="top-right"
+  reverseOrder={false}/>
+{/* <ToastContainer/> */}
+      <Navbar />
+      {/* <CartZustand/> */}
+      <Outlet />
+      <Footer />
     </>
   )
 }

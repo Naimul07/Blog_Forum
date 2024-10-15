@@ -7,6 +7,7 @@ import MainlayOut from './Layout/MainlayOut.jsx'
 import HomePage from './Pages/HomePage.jsx'
 import Login from './Pages/Login.jsx'
 import Register from './Pages/Register.jsx'
+import EmailVerify from './Pages/EmailVerify.jsx'
 
 
 const router = createBrowserRouter([
@@ -18,17 +19,29 @@ const router = createBrowserRouter([
       {
         path:"",
         element:<HomePage/>
+      },
+      {
+        path:"/login",
+        element:<Login/>
+      },
+      {
+        path:"/register",
+        element:<Register/>
+      },
+      {
+        path:"/email_verification",
+        element:<EmailVerify/>
       }
     ]
   },
-  {
+  /* {
     path:"/login",
     element:<Login/>
   },
   {
     path:"/register",
     element:<Register/>
-  }
+  } */
 ])
 
 

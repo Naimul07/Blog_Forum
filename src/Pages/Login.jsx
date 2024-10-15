@@ -3,6 +3,9 @@ import { useForm } from "react-hook-form"
 import { useNavigate,Link } from "react-router-dom";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+
 
 function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -23,6 +26,7 @@ function Login() {
       // console.log(response);
       localStorage.setItem('token',response.data.token);
       localStorage.setItem('email_verified_at',response.data.email_verified_at);
+      toast.success(response.data.message);
       navigate('/');
     }
     catch(error){
