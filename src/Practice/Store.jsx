@@ -1,4 +1,4 @@
-import { create } from "zustand";
+/* import { create } from "zustand";
 import { persist } from 'zustand/middleware';
 
 const useCart = create(persist((set) => ({
@@ -39,7 +39,7 @@ const useCart = create(persist((set) => ({
     getStorage: () => localStorage, // Use local storage
 }));
 
-export default useCart;
+export default useCart; */
 
 
 
@@ -54,7 +54,7 @@ export default useCart;
 
 
 
-/* //we will learn zustand
+ //we will learn zustand
 import { create } from "zustand";
 const useCart = create((set) => ({
     cart: [],
@@ -80,4 +80,4 @@ const useCart = create((set) => ({
     }),
 }))
 
-export default useCart; */
+export default useCart; 

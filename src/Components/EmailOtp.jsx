@@ -11,7 +11,7 @@ function EmailOtp() {
     const [error, setError] = useState("");
     const navigate = useNavigate();
     const token = useAuthStore((state) => state.token);
-
+    const setAuth = useAuthStore((state)=> state.setAuth);
     async function onSubmit(data) {
         // console.log(data);
         try {
@@ -23,7 +23,7 @@ function EmailOtp() {
                 },
             })
             // console.log(response);
-            localStorage.setItem('email_verified_at', true);
+            setAuth(token,response.data.email_verified_at);
             toast.success(response.data.message);
             navigate('/');
         }
