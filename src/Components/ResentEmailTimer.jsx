@@ -31,10 +31,10 @@ function ResentEmailTimer() {
                 },
 
             });
-            console.log(response);
+            // console.log(response);
             toast.success(response.data.message);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             toast.error(error.response.data.message);
 
         }

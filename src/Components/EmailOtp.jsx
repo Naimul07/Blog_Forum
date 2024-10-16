@@ -11,7 +11,7 @@ function EmailOtp() {
     const token = localStorage.getItem('token');
 
     async function onSubmit(data) {
-        console.log(data);
+        // console.log(data);
         try {
             const response = await axios.post('/Api/verify/otp', {
                 otp: data.otp
@@ -20,13 +20,13 @@ function EmailOtp() {
                     Authorization: `Bearer ${token}`,
                 },
             })
-            console.log(response);
+            // console.log(response);
             localStorage.setItem('email_verified_at', true);
             toast.success(response.data.message);
             navigate('/');
         }
         catch (err) {
-            console.log(err);
+            // console.log(err);
             toast.error(err.response.data.message);
             setError(err.response.data.message);
         }
@@ -51,4 +51,4 @@ function EmailOtp() {
     )
 }
 
-export default EmailOtp
+export default EmailOtp;

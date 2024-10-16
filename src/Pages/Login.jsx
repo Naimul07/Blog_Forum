@@ -30,6 +30,7 @@ function Login() {
     }
     catch(error){
       setErrorBackend(error.response.data.message);
+      toast.error(error.response.data.message);
     }
     finally{
       setLoading(false);
@@ -39,7 +40,7 @@ function Login() {
   return (
     <>
       <div className="container mx-auto">
-        <div className="md:shadow-xl rounded-lg min-h-screen lg:w-3/5 md:w-3/4 w-full mx-auto flex items-center justify-center">
+        <div className="border shadow-xl rounded-lg min-h-screen lg:w-3/5 md:w-3/4 w-full mx-auto flex items-center justify-center">
           <div className="lg:w-3/5 md:w-2/3 w-full">
             <h1 className="text-2xl font-bold text-center my-6">Login</h1>
 
