@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import useAuthStore from "../Store/AuthStore";
 
 function ResentEmailTimer() {
     const [timer, setTimer] = useState(60);
     const [canResend, setCanResend] = useState(true);   
-    const token = localStorage.getItem('token');
+    const token = useAuthStore((state) => state.token);
 
     useEffect(() => {
         let countdown;

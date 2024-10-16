@@ -3,12 +3,14 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import useAuthStore from "../Store/AuthStore";
+
 
 function EmailOtp() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [error, setError] = useState("");
     const navigate = useNavigate();
-    const token = localStorage.getItem('token');
+    const token = useAuthStore((state) => state.token);
 
     async function onSubmit(data) {
         // console.log(data);
