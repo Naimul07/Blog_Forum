@@ -81,7 +81,7 @@ function Login() {
               </div>
 
             </form>
-            <Link to='/' className="text-blue-600 mx-6 pt-4">Forget Password?</Link>
+            <Link to='/password/resetEmail' className="text-blue-600 mx-6 pt-4">Forget Password?</Link>
             <p className="text-center mt-4">
               Don't have an account? <Link to="/register" className="text-blue-600 hover:underline">Register</Link>
             </p>

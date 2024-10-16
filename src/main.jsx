@@ -8,6 +8,8 @@ import HomePage from './Pages/HomePage.jsx'
 import Login from './Pages/Login.jsx'
 import Register from './Pages/Register.jsx'
 import EmailVerify from './Pages/EmailVerify.jsx'
+import ResetPassword from './Pages/ResetPassword.jsx'
+import ForgetPassResent from './Components/ForgetPassResent.jsx'
 
 
 const router = createBrowserRouter([
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
       {
         path:"/email_verification",
         element:<EmailVerify/>
+      },
+      {
+        path:"/password/reset",
+        element:<ResetPassword/>
+      },
+      {
+        path:"/password/resetEmail",
+        element:<ForgetPassResent/>
       }
     ]
   },
