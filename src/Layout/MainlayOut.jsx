@@ -4,14 +4,12 @@ import Footer from "../Components/Footer"
 import { Toaster } from "react-hot-toast";
 
 function MainlayOut() {
-  
+
   return (
     <>
-     <Toaster position="top-right"
-  reverseOrder={false}/>
-
+      <Toaster position="top-right"
+        reverseOrder={false} />
       <Navbar />
-      
       <Outlet />
       <Footer />
     </>

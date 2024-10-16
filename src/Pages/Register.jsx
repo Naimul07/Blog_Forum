@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useAuthStore from "../Store/AuthStore";
 
 function Register() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -11,6 +12,7 @@ function Register() {
   const [errorBackend, setErrorBackend] = useState("");
   const password = watch("password");
   const navigate = useNavigate();
+  const setAuth = useAuthStore((state) => state.setAuth);
 
 
   async function onSubmit(data) {
@@ -24,7 +26,7 @@ function Register() {
         password_confirmation: data.password_confirmation
       });
       // console.log(response);
-      localStorage.setItem('token',response.data.token);
+      setAuth(response.data.token, response.data.email_verified_at);
       toast.success(response.message);
       navigate('/email_verification');
     }

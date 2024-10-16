@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form"
 import { useNavigate,Link } from "react-router-dom";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
-// import { toast } from "react-toastify";
 import toast from "react-hot-toast";
+import useAuthStore from "../Store/AuthStore";
 
 
 function Login() {
@@ -12,7 +12,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [errorBackend, setErrorBackend] = useState("");
   const navigate = useNavigate(); 
-
+  const setAuth = useAuthStore((state) => state.setAuth);
   async function onSubmit(data) {
     // console.log(data)
     setLoading(true);
@@ -24,13 +24,12 @@ function Login() {
         }
       );
       // console.log(response);
-      localStorage.setItem('token',response.data.token);
-      localStorage.setItem('email_verified_at',response.data.email_verified_at);
+      setAuth(response.data.token,response.data.email_verified_at);
       toast.success(response.data.message);
       navigate('/');
     }
     catch(error){
-      setErrorBackend("Invalid credential");
+      setErrorBackend(error.response.data.message);
     }
     finally{
       setLoading(false);
