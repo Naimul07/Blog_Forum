@@ -14,13 +14,13 @@ function Posts() {
         const fetchPosts = async () => {
             setLoading(true);
             try {
-                const response = await axios.get('/Api/post', {
+                const response = await axios.get('/Api/post?page=2', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }
                 });
                 console.log(response);
-                setPosts(response.data);
+                setPosts(response.data.data);
             }
             catch (err) {
                 setError(err);
@@ -37,11 +37,11 @@ function Posts() {
         <>
             <div>
                 <div>
-                    <div>
+                    <div className="">
                         {loading ? (
                             <h1>loading</h1>
                         ) : (
-                            <div>
+                            <div className="">
                             {
                                 posts.map((post) => (
                                     <PostItem key={post.id} postdetails={post} />

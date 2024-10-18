@@ -1,5 +1,5 @@
-
-
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { IoMdAdd } from "react-icons/io";
 function Navbar() {
   return (
     <>
@@ -13,10 +13,10 @@ function Navbar() {
               <input type="text" className="border rounded-md border-black" />
             </li>
             <li>
-              Notification
+            <IoMdNotificationsOutline size={24}/>
             </li>
             <li>
-              create post
+            <IoMdAdd size={24}/>
             </li>
             <li>
               user

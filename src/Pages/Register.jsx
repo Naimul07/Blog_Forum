@@ -26,7 +26,7 @@ function Register() {
         password_confirmation: data.password_confirmation
       });
       // console.log(response);
-      setAuth(response.data.token, response.data.email_verified_at);
+      setAuth(response.data.token, response.data.user);
       toast.success(response.message);
       navigate('/email_verification');
     }

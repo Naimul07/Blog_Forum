@@ -23,7 +23,7 @@ function EmailOtp() {
                 },
             })
             // console.log(response);
-            setAuth(token,response.data.email_verified_at);
+            setAuth(token,response.data.user);
             toast.success(response.data.message);
             navigate('/');
         }
