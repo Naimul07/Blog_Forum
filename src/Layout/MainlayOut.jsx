@@ -11,7 +11,7 @@ function MainlayOut() {
         reverseOrder={false} />
       <Navbar />
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

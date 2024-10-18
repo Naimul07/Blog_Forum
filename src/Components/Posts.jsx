@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAuthStore from "../Store/AuthStore"
 import axios from "axios";
 import PostItem from "./PostItem";
+import CircleLoader from "react-spinners/CircleLoader";
 
 function Posts() {
     const [error, setError] = useState("");
@@ -37,9 +38,12 @@ function Posts() {
         <>
             <div>
                 <div>
-                    <div className="">
+                    <div>
                         {loading ? (
-                            <h1>loading</h1>
+                    <div className="flex justify-center items-center h-screen">
+
+                            <CircleLoader size={300} />
+                            </div>
                         ) : (
                             <div className="">
                             {

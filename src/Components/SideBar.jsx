@@ -2,55 +2,55 @@ import { NavLink } from "react-router-dom"
 import { FaHome } from "react-icons/fa";
 
 function SideBar() {
-  return (
-    <>
-    <div className="min-h-screen">
-        <div className="">
-            <ul className="flex flex-col items-center border-b">
-                <li>
-                    <NavLink to='/' className="flex items-center space-x-2 p-3"><FaHome /> <span>Home</span></NavLink>
-                </li>
-                <li>
-                <NavLink to='/' className="flex items-center space-x-2 p-3">Popular</NavLink>
+    return (
+        <>
+            <div className="">
+                <div className="">
+                    <ul className="flex flex-col items-center border-b">
+                        <li>
+                            <NavLink to='/' className="flex items-center space-x-2 p-3"><FaHome /> <span>Home</span></NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/' className="flex items-center space-x-2 p-3">Popular</NavLink>
 
-                </li>
-                <li>
-                <NavLink to='/' className="flex items-center space-x-2 p-3">Explore</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/' className="flex items-center space-x-2 p-3">Explore</NavLink>
 
-                </li>
+                        </li>
 
-                <li>
-                <NavLink to='/' className="flex items-center space-x-2 p-3">All</NavLink>   
+                        <li>
+                            <NavLink to='/' className="flex items-center space-x-2 p-3">All</NavLink>
 
-                </li>
+                        </li>
 
-            </ul>
+                    </ul>
 
-        </div>
-        <div>
- <ul className="flex flex-col items-center border-b">
-                <li>
-                    <NavLink to='/' className="flex items-center space-x-2 p-3"> <span>Communities</span></NavLink>
-                </li>
-                <li>
-                <NavLink to='/' className="flex items-center space-x-2 p-3"><span>Advertise</span></NavLink>
+                </div>
+                <div>
+                    <ul className="flex flex-col items-center border-b">
+                        <li>
+                            <NavLink to='/' className="flex items-center space-x-2 p-3"> <span>Communities</span></NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/' className="flex items-center space-x-2 p-3"><span>Advertise</span></NavLink>
 
-                </li>
-                <li>
-                <NavLink to='/' className="flex items-center space-x-2 p-3"><span>Help</span></NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/' className="flex items-center space-x-2 p-3"><span>Help</span></NavLink>
 
-                </li>
+                        </li>
 
-                <li>
-                <NavLink to='/' className="flex items-center space-x-2 p-3"><span>User Agreement</span></NavLink>   
+                        <li>
+                            <NavLink to='/' className="flex items-center space-x-2 p-3"><span>User Agreement</span></NavLink>
 
-                </li>
+                        </li>
 
-            </ul>
-        </div>
-    </div>
-    </>
-  )
+                    </ul>
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default SideBar

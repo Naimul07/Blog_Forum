@@ -10,7 +10,7 @@ import Register from './Pages/Register.jsx'
 import EmailVerify from './Pages/EmailVerify.jsx'
 import ResetPassword from './Pages/ResetPassword.jsx'
 import ForgetPassResent from './Components/ForgetPassResent.jsx'
-
+import PostPage from "./Pages/PostPage.jsx"
 
 const router = createBrowserRouter([
   {
@@ -23,24 +23,28 @@ const router = createBrowserRouter([
         element:<HomePage/>
       },
       {
-        path:"/login",
+        path:"login",
         element:<Login/>
       },
       {
-        path:"/register",
+        path:"register",
         element:<Register/>
       },
       {
-        path:"/email_verification",
+        path:"email_verification",
         element:<EmailVerify/>
       },
       {
-        path:"/password/reset",
+        path:"password/reset",
         element:<ResetPassword/>
       },
       {
-        path:"/password/resetEmail",
+        path:"password/resetEmail",
         element:<ForgetPassResent/>
+      },
+      {
+        path:"posts/:id",
+        element:<PostPage/>
       }
     ]
   },
