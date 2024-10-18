@@ -2,26 +2,27 @@ import { create } from "zustand";
 
 const useAuthStore = create((set)=>({
     token: localStorage.getItem('token')||null,
-    email_verified_at: JSON.parse(localStorage.getItem('email_verified_at'))||false,
+    // email_verified_at: JSON.parse(localStorage.getItem('email_verified_at'))||false,
+    user:JSON.parse(localStorage.getItem('user'))||null,
     
     
-    setAuth:(token,email_verified_at)=>{
+    setAuth:(token,user)=>{
         localStorage.setItem('token',token);
-        localStorage.setItem('email_verified_at',email_verified_at);
+        localStorage.setItem('user',JSON.stringify(user));
         set( {
             token,
-            email_verified_at,
+            user,
            
         })
     },
     clearAuth:()=>{
         localStorage.removeItem('token');
-        localStorage.removeItem('email_verified_at');
+        localStorage.removeItem('user');
         set({
-            token: null, email_verified: false, 
+            token: null, user: null, 
         });
     },
-    getUserVerified:(state)=> !!state.token && state.email_verified_at
+    getUserVerified:(state)=> !!state.token && !!state.user?.email_verified_at
 }));
 export default useAuthStore;
 

@@ -23,8 +23,8 @@ function Login() {
           password:data.password
         }
       );
-      // console.log(response);
-      setAuth(response.data.token,response.data.email_verified_at);
+      console.log(response);
+      setAuth(response.data.token,response.data.user);
       toast.success(response.data.message);
       navigate('/');
     }
