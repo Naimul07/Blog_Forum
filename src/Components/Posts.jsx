@@ -15,7 +15,7 @@ function Posts() {
         const fetchPosts = async () => {
             setLoading(true);
             try {
-                const response = await axios.get('/Api/post?page=2', {
+                const response = await axios.get('/Api/post?page=1', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }

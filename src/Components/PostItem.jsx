@@ -4,6 +4,7 @@ import { FaRegComment } from "react-icons/fa";
 import { FaRegShareSquare } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import PostDropdown from "./PostDropdown";
 function PostItem({ postdetails }) {
 
   const date = new Date(postdetails.created_at);
@@ -11,26 +12,31 @@ function PostItem({ postdetails }) {
   const day = Math.floor(createdAgo / (24 * 60));
   const month = Math.floor(day / 30);
   const [loading, setLoading] = useState(false);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   let postDescription = postdetails.description;
   postDescription = postDescription.length > 800 ? postDescription.slice(0, 800) : postDescription;
 
   function handleClick(id) {
     // alert(id);
-    navigate(`/posts/${id}`);
+    navigate(`/post/${id}`);
 
   }
 
   return (
     <>
       <div className="py-4 px-8 border-b rounded-sm">
-        
+
         <div className="my-2">
-          <h1>{postdetails.user.firstName} {postdetails.user.lastName}</h1>
+
+          <div className="flex justify-between">
+
+            <h1>{postdetails.user.firstName} {postdetails.user.lastName}</h1>
+            <PostDropdown postId={postdetails.id} />
+          </div>
           <span className="text-xs text-slate-600">{month ? `${month} ${month > 1 ? 'months' : 'month'} ago` : (day ? `${day} ${day > 1 ? 'days' : 'day'} ago` : `${createdAgo} ${createdAgo > 1 ? 'minutes' : 'minute'} ago`)} </span>
         </div>
-        <div className="text-justify cursor-pointer" onClick={()=>handleClick(postdetails.id)}>
+        <div className="text-justify cursor-pointer" onClick={() => handleClick(postdetails.id)}>
           {postDescription}
         </div>
         <div className="flex space-x-8 mt-4">

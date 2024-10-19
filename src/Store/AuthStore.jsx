@@ -22,7 +22,10 @@ const useAuthStore = create((set)=>({
             token: null, user: null, 
         });
     },
-    getUserVerified:(state)=> !!state.token && !!state.user?.email_verified_at
+    getUserVerified: () => {
+        const state = useAuthStore.getState();
+        return !!state.token && !!state.user?.email_verified_at;
+    },
 }));
 export default useAuthStore;
 

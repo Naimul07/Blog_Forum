@@ -11,41 +11,53 @@ import EmailVerify from './Pages/EmailVerify.jsx'
 import ResetPassword from './Pages/ResetPassword.jsx'
 import ForgetPassResent from './Components/ForgetPassResent.jsx'
 import PostPage from "./Pages/PostPage.jsx"
+import CreatePost from './Pages/CreatePost.jsx'
+import SecondLayout from './Layout/SecondLayout.jsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element:<MainlayOut/> ,
-    errorElement:<ErrorPage/>,
-    children:[
+    element: <MainlayOut />,
+    errorElement: <ErrorPage />,
+    children: [
       {
-        path:"",
-        element:<HomePage/>
+        path: "",
+        element: <HomePage />
       },
       {
-        path:"login",
-        element:<Login/>
+        path: "login",
+        element: <Login />
       },
       {
-        path:"register",
-        element:<Register/>
+        path: "register",
+        element: <Register />
       },
       {
-        path:"email_verification",
-        element:<EmailVerify/>
+        path: "email_verification",
+        element: <EmailVerify />
       },
       {
-        path:"password/reset",
-        element:<ResetPassword/>
+        path: "password/reset",
+        element: <ResetPassword />
       },
       {
-        path:"password/resetEmail",
-        element:<ForgetPassResent/>
+        path: "password/resetEmail",
+        element: <ForgetPassResent />
       },
       {
-        path:"posts/:id",
-        element:<PostPage/>
-      }
+        path: 'post',
+        element: <SecondLayout />,
+        children: [
+          {
+            path: "create",
+            element: <CreatePost />
+          },
+          {
+            path: ":id",
+            element: <PostPage />
+          },
+        ]
+      },
     ]
   },
   /* {

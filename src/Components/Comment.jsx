@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import useAuthStore from "../Store/AuthStore";
-
+import axios from "axios";
 
 function Comment() {
   const [comment,setComment] = useState([]);
@@ -10,7 +10,7 @@ function Comment() {
     const fetchComment = async () => {
       setLoading(true);
       try {
-          const response = await axios.get(`/Api/post/${id}`, {
+          const response = await axios.get(`/Api/post`, {
               headers: {
                   Authorization: `Bearer ${token}`,
               },
@@ -32,6 +32,7 @@ function Comment() {
     <div>
       <div>
         <h1>Comments</h1>
+        
       </div>
 
     </div>
