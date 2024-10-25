@@ -13,6 +13,9 @@ import ForgetPassResent from './Components/ForgetPassResent.jsx'
 import PostPage from "./Pages/PostPage.jsx"
 import CreatePost from './Pages/CreatePost.jsx'
 import SecondLayout from './Layout/SecondLayout.jsx'
+import EditPost from './Pages/EditPost.jsx'
+import { PostLoader } from './Loader/PostLoader.jsx'
+import ProfilePage from './Pages/ProfilePage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -56,8 +59,18 @@ const router = createBrowserRouter([
             path: ":id",
             element: <PostPage />
           },
+          {
+            path:"edit/:id",
+            element:<EditPost/>,
+            loader:PostLoader
+          },
+
         ]
       },
+      {
+        path:'user',
+        element:<ProfilePage/>
+      }
     ]
   },
   /* {

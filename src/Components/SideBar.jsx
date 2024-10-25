@@ -11,7 +11,7 @@ import { TbUserCog } from "react-icons/tb";
 function SideBar() {
     return (
         <>
-            <div className="">
+            <div className="pl-8 pr-4">
                 <div className="">
                     <ul className="flex flex-col items-center border-b">
                         <li className="w-full">
@@ -37,7 +37,7 @@ function SideBar() {
                     </ul>
                 </div>
                 <div>
-                    <ul className="flex flex-col items-center border-b w-full">
+                    <ul className="flex flex-col items-center border-b">
                         <li className="w-full">
                             <NavLink to='/' className="flex items-center justify-center space-x-2 py-3 w-full hover:bg-slate-100 ">
                                 <RiCommunityLine /> <span>Communities</span>

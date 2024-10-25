@@ -1,10 +1,44 @@
+import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form"
+import ClipLoader from "react-spinners/ClipLoader";
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "../Store/AuthStore";
+import toast from "react-hot-toast";
 
 function CreatePost() {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const token = useAuthStore((state) => state.token);
+  const navigate = useNavigate();
+  async function onSubmit(data) {
+    const formData = new FormData();
+    formData.append('image', data.image[0]);
+    formData.append('title', data.title);
+    formData.append('description', data.post);
+    setLoading(true);
+    try {
+      const response = await axios.post('/Api/post',
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
 
-  function onSubmit(data) {
-    console.log(data)
+          }
+        });
+      // console.log(response);
+      toast.success(response.data.message);
+        navigate(`/post/${response.data.post.id}`);
+    } catch (err) {
+      setError(err.response);
+      // console.log(error);
+    }
+    finally {
+      setLoading(false);
+    }
+
+
   }
 
   return (
@@ -16,26 +50,34 @@ function CreatePost() {
               Title
             </label>
             <input
-              {...register('title')}
+              {...register('title', {
+                required: 'Title is required'
+              })}
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Title..."
             />
+            {errors.title && <span className="text-red-500 text-xs mt-1 input-error">{errors.title.message}</span>}
+
           </div>
           <div>
             <label htmlFor="post" className="block mb-2 text-sm font-semibold ">
               Write Post
             </label>
             <textarea
-              {...register('post')}
+              {...register('post', {
+                required: 'Post description is required',
+              })}
               rows="6"
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Write your Post here..."
             ></textarea>
+            {errors.post && <span className="text-red-500 text-xs mt-1 input-error">{errors.post.message}</span>}
+
           </div>
           <div>
-            <div className="w-full ">
+            {/*   <div className="w-full ">
               <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
-                Cover photo
+                Upload Picture
               </label>
               <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10 bg-slate-50">
                 <div className="text-center">
@@ -58,17 +100,24 @@ function CreatePost() {
                       className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                     >
                       <span>Upload a file</span>
-                      <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                      <input {...register('image')} id="file-upload" type="file" className="sr-only" />
                     </label>
-                    <p className="pl-1">or drag and drop</p>
+                    <p className="pl-1"> Here files types are</p>
                   </div>
-                  <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+                  <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 2MB</p>
                 </div>
               </div>
-            </div>
+            </div> */}
+            <div className="my-4">
+              <input type="file" {...register('image')} />
+              {errors.image && <span className="text-red-500 text-xs mt-1 input-error">{errors.image.message}</span>}
 
+            </div>
           </div>
-          <button type='submit' className='mt-2 float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none'>Submit</button>
+
+          <button type='submit' className='mt-2 float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full sm:w-1/3'>{loading ? (
+            <ClipLoader color="#ffffff" loading={loading} size={20} />
+          ) : ('Submit')}</button>
         </form>
       </div>
     </>

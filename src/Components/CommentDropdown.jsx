@@ -5,24 +5,23 @@ import useAuthStore from "../Store/AuthStore";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-function PostDropdown({postId}) {
+function PostDropdown({commentId}) {
     const [open, setOpen] = useState(false);
     const token = useAuthStore((state)=>state.token);
     const navigate = useNavigate();
     // console.log(open);
     function handleEdit() {
-        navigate(`/post/edit/${postId}`)
+        navigate(`/post/comment/edit/${commentId}`)
     }
     async function handleDelete() {
         
         try {
-            const response = await axios.delete(`/Api/post/${postId}`,{
+            const response = await axios.delete(`/Api/post/comments/${commentId}`,{
                 headers:{
                     Authorization:`Bearer ${token}`,
                 }
             });
             toast.success(response.data.message);
-            navigate('/');
         } catch (err) {
             toast.error(err.response.data.message);
         }

@@ -7,37 +7,17 @@ import { FaRegComment } from "react-icons/fa";
 import { FaRegShareSquare } from "react-icons/fa";
 import PostDropdown from "./PostDropdown";
 
-function Post({ id }) {
-    const [loading, setLoading] = useState(false);
-    const [post, setPost] = useState([]);
-    const token = useAuthStore((state) => state.token);
+
+
+function Post({ postItem }) {
+
     const userv = useAuthStore((state) => state.user);
     // console.log(userv)
     // console.log(id);
-    useEffect(() => {
-        const fetchPost = async () => {
-            setLoading(true);
-            try {
-                const response = await axios.get(`/Api/post/${id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                setPost(response.data);
 
-            } catch (error) {
-                console.log(error)
-            }
-            finally {
-                setLoading(false);
-            }
-        }
-        fetchPost();
+    // console.log(postItem);
 
-    }, [id]);
-    console.log(post);
-
-    const date = new Date(post.created_at);
+    const date = new Date(postItem.created_at);
     const createdAgo = Math.floor((new Date() - date) / 60000);
     const day = Math.floor(createdAgo / (24 * 60));
     const month = Math.floor(day / 30);
@@ -46,22 +26,23 @@ function Post({ id }) {
     return (
         <>
             <div className="px-4 pb-2 mt-6">
-                {/* here the post */}
                 <div className="my-2">
                     <div className="flex justify-between">
-                        <h1 className="font-bold text-lg from-neutral-800">{post.title}</h1>
-                        {post.user?.id === userv.id && <PostDropdown postId={post.id} />}
+
+
+                        <h1 className="font-bold text-lg from-neutral-800">{postItem.title}</h1>
+                        {postItem.user?.id === userv.id && <PostDropdown postId={postItem.id} />}
                     </div>
                 </div>
                 <div className="mb-2">
-                    <h1 className="mb-0 text-sm">{post.user?.firstName} {post.user?.lastName}</h1>
+                    <h1 className="mb-0 text-sm">{postItem.user?.firstName} {postItem.user?.lastName}</h1>
                     <span className="text-xs text-slate-600">{month ? `${month} ${month > 1 ? 'months' : 'month'} ago` : (day ? `${day} ${day > 1 ? 'days' : 'day'} ago` : `${createdAgo} ${createdAgo > 1 ? 'minutes' : 'minute'} ago`)} </span>
                 </div>
                 <div className="flex justify-center">
-                  {post.image&&<img title={post.title} src={`http://localhost:8000/storage/${post.image}`} className="w-full h-auto object-cover sm:w-3/4 md:w-1/2 lg:w-1/3" />}
+                    {postItem.image && <img title={postItem.title} src={`/Image/${postItem.image}`} className="w-full h-auto object-cover lg:object-contain sm:w-24 md:w-40 lg:w-44 my-4" />}
                 </div>
                 <div className="text-justify mt-4">
-                    {post.description}
+                    {postItem.description}
                 </div>
 
                 <div className="flex space-x-8 mt-4">
@@ -69,11 +50,12 @@ function Post({ id }) {
                     <div className="relative flex items-center">
                         <FaRegComment size={20} />
                         <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full px-1">
-                            {/* {postdetails.comments_count} */}
+                            {postItem.comments_count+postItem.replies_count} 
                         </span>
                     </div>
                     <div><FaRegShareSquare size={20} /></div>
                 </div>
+
             </div>
         </>
     )
