@@ -1,6 +1,6 @@
 
 
-function Replies({ replies }) {
+function Replies({ replies, onReplyClick }) {
 
   return (
     <>
@@ -12,7 +12,7 @@ function Replies({ replies }) {
             {replies?.reply}
           </p>
           <div className="flex space-x-4 text-sm text-gray-500 mt-2">
-            <button className="hover:underline">Reply</button>
+            <button className="hover:underline" onClick={onReplyClick}>Reply</button>
             <span>{new Date(replies.created_at).toLocaleDateString()}</span>
 
           </div>

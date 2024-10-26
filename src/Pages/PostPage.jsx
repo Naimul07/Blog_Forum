@@ -1,11 +1,12 @@
 import axios from "axios";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Comment from "../Components/Comment";
 import CreateComment from "../Components/CreateComment";
 import Post from "../Components/Post";
 import useAuthStore from "../Store/AuthStore";
 import { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
+import toast from "react-hot-toast";
 
 function PostPage() {
   const [loading, setLoading] = useState(false);
@@ -14,6 +15,7 @@ function PostPage() {
   const { id } = useParams();
   const isVerified = useAuthStore.getState().getUserVerified();
   const [comments, setComments] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchPost = async () => {
       setLoading(true);
@@ -26,7 +28,9 @@ function PostPage() {
         setPost(response.data);
 
       } catch (error) {
-        console.log(error)
+        // console.log(error)
+        toast.error('page not found');
+        navigate('/')
       }
       finally {
         setLoading(false);
@@ -34,7 +38,7 @@ function PostPage() {
     }
     fetchPost();
 
-  }, [id,comments]);
+  }, [id, comments]);
 
   const handleNewComment = (newComment) => {
     setComments((prevComments) => [...prevComments, newComment]);
@@ -42,24 +46,30 @@ function PostPage() {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-5">
-        <div className="col-span-1 md:col-span-4">
-          <div>
-            <Post postItem={post} />
-          </div>
-          <div className="px-4 mt-4 mb-14">
-            {
-              isVerified ? (<CreateComment postId={id} onNewComment={handleNewComment}/>) : ('')
-            }
-          </div>
-          <div className="px-4 mt-6">
-            <Comment comment = {post.comments} />
-          </div>
-        </div>
-        <div className="hidden md:col-span-1 h-screen">
+      {
+        loading ? (
+        <div className="flex items-center justify-center h-screen"><ClipLoader size={100}/></div>) : (
+          <div className="grid grid-cols-1 md:grid-cols-5">
+            <div className="col-span-1 md:col-span-4">
+              <div>
+                <Post postItem={post} />
+              </div>
+              <div className="px-4 mt-4 mb-14">
+                {
+                  isVerified ? (<CreateComment postId={id} onNewComment={handleNewComment} />) : ('')
+                }
+              </div>
+              <div className="px-4 mt-6">
+                <Comment comment={post.comments} postId={id} onNewComment={handleNewComment}/>
+              </div>
+            </div>
+            <div className="hidden md:col-span-1 h-screen">
 
-        </div>
-      </div>
+            </div>
+          </div>
+        )
+      }
+
 
 
     </>

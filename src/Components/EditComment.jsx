@@ -1,4 +1,4 @@
-import axios from "axios";
+/* import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form"
 import useAuthStore from "../Store/AuthStore"
@@ -26,7 +26,7 @@ function CreateComment({ postId,onNewComment }) {
           }
         });
         toast.success(response.data.message);
-        onNewComment(response.data.message);
+        onNewComment(response.data.comment);
         reset();
     }
     catch (err) {
@@ -62,4 +62,4 @@ function CreateComment({ postId,onNewComment }) {
   )
 }
 
-export default CreateComment
+export default CreateComment */

@@ -39,13 +39,13 @@ function Post({ postItem }) {
                     <span className="text-xs text-slate-600">{month ? `${month} ${month > 1 ? 'months' : 'month'} ago` : (day ? `${day} ${day > 1 ? 'days' : 'day'} ago` : `${createdAgo} ${createdAgo > 1 ? 'minutes' : 'minute'} ago`)} </span>
                 </div>
                 <div className="flex justify-center">
-                    {postItem.image && <img title={postItem.title} src={`/Image/${postItem.image}`} className="w-full h-auto object-cover lg:object-contain sm:w-24 md:w-40 lg:w-44 my-4" />}
+                    {postItem.image && <img title={postItem.title} src={`/Image/${postItem.image}`} className="w-full h-auto sm:w-3/4 sm:h-64 md:w-2/3 md:h-72 lg:w-1/2 lg:h-80 xl:w-1/3 xl:h-96 rounded-lg object-cover my-4" />}
                 </div>
                 <div className="text-justify mt-4">
                     {postItem.description}
                 </div>
 
-                <div className="flex space-x-8 mt-4">
+                <div className="flex space-x-8 mb-2 mt-4">
                     <div className="flex items-center"><span><LuArrowBigUp size={22} /></span> <span className="bg-red-500 text-white text-xs rounded-full px-1">2</span> <span><LuArrowBigDown size={22} /></span></div>
                     <div className="relative flex items-center">
                         <FaRegComment size={20} />

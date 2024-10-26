@@ -7,7 +7,7 @@ function SecondLayout() {
 
     return (
         <>
-            <div className="pt-14">
+            <div className="pt-20">
                 <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5">
                     <div className=" hidden sm:block border-r h-screen overflow-y-auto">
                         <SideBar />

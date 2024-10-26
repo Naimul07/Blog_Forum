@@ -1,7 +1,7 @@
 import { LuArrowBigUp } from "react-icons/lu";
 import { LuArrowBigDown } from "react-icons/lu";
 import { FaRegComment } from "react-icons/fa";
-import { FaRegShareSquare } from "react-icons/fa";
+import { CiShare2 } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import PostDropdown from "./PostDropdown";
@@ -25,7 +25,7 @@ function PostItem({ postdetails }) {
 
   return (
     <>
-      <div className="py-4 px-8 border-b rounded-sm">
+      <div className="py-4 px-8 shadow rounded-sm mb-8">
 
         <div className="mb-4">
 
@@ -38,7 +38,7 @@ function PostItem({ postdetails }) {
           </div>
         </div>
         <div className="flex justify-center">
-          {postdetails.image && <img title={postdetails.title} src={`/Image/${postdetails.image}`} className="w-full h-auto object-cover lg:object-contain sm:w-24 md:w-40 lg:w-44 my-4" />}
+          {postdetails.image && <img title={postdetails.title} src={`/Image/${postdetails.image}`} className="w-64 h-40 sm:w-3/4 sm:h-64 md:w-2/3 md:h-72 lg:w-1/2 lg:h-80 xl:w-1/3 xl:h-96 rounded-lg object-cover my-4" />}
         </div>
 
         <div className="text-justify cursor-pointer" onClick={() => handleClick(postdetails.id)}>
@@ -46,7 +46,7 @@ function PostItem({ postdetails }) {
         </div>
 
 
-        <div className="flex space-x-14 mt-4">
+        <div className="flex space-x-14 mt-8 mb-4">
           <div className="flex items-center"><span><LuArrowBigUp size={22} /></span> <span className="bg-red-500 text-white text-xs rounded-full px-1">{postdetails.reactions_count}</span> <span><LuArrowBigDown size={22} /></span></div>
           <div className="relative flex items-center">
             <FaRegComment size={20} />
@@ -54,7 +54,7 @@ function PostItem({ postdetails }) {
               {postdetails.comments_count + postdetails.replies_count}
             </span>
           </div>
-          <div><FaRegShareSquare size={20} /></div>
+          <div><CiShare2 size={20} className="text-blue"/></div>
         </div>
       </div>
     </>

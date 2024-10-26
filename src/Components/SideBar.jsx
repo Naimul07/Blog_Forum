@@ -7,62 +7,95 @@ import { RiCommunityLine } from "react-icons/ri";
 import { FcAdvertising } from "react-icons/fc";
 import { GrHelpBook } from "react-icons/gr";
 import { TbUserCog } from "react-icons/tb";
-
+import { IoMdAdd } from "react-icons/io";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { CiUser } from "react-icons/ci";
 function SideBar() {
     return (
-        <>
-            <div className="pl-8 pr-4">
-                <div className="">
-                    <ul className="flex flex-col items-center border-b">
-                        <li className="w-full">
-                            <NavLink to='/' className="flex items-center justify-center space-x-2 py-3 w-full hover:bg-slate-100 ">
-                                <FaHome /> <span>Home</span>
-                            </NavLink>
-                        </li>
-                        <li className="w-full">
-                            <NavLink to='/' className="flex items-center justify-center space-x-2 py-3 w-full hover:bg-slate-100 ">
-                                <FaBoltLightning /><span>Popular</span>
-                            </NavLink>
-                        </li>
-                        <li className="w-full">
-                            <NavLink to='/' className="flex items-center justify-center space-x-2 py-3 w-full hover:bg-slate-100 ">
-                                <FaWpexplorer /><span>Explore</span>
-                            </NavLink>
-                        </li>
-                        <li className="w-full">
-                            <NavLink to='/' className="flex items-center justify-center space-x-2 py-3 w-full hover:bg-slate-100 ">
-                                <IoIosDoneAll /><span>All</span>
-                            </NavLink>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <ul className="flex flex-col items-center border-b">
-                        <li className="w-full">
-                            <NavLink to='/' className="flex items-center justify-center space-x-2 py-3 w-full hover:bg-slate-100 ">
-                                <RiCommunityLine /> <span>Communities</span>
-                            </NavLink>
-                        </li>
-                        <li className="w-full">
-                            <NavLink to='/' className="flex items-center justify-center space-x-2 py-3 w-full hover:bg-slate-100 ">
-                                <FcAdvertising /><span>Advertise</span>
-                            </NavLink>
-                        </li>
-                        <li className="w-full">
-                            <NavLink to='/' className="flex items-center justify-center space-x-2 py-3 w-full hover:bg-slate-100 ">
-                                <GrHelpBook /><span>Help</span>
-                            </NavLink>
-                        </li>
-                        <li className="w-full text-center">
-                            <NavLink to='/' className="flex justify-center items-center space-x-2 py-3 w-full hover:bg-slate-100">
-                                <TbUserCog /><span>User Agreement</span>
-                            </NavLink>
-                        </li>
-                    </ul>
-                </div>
+        <div className="w-full h-screen bg-white shadow-md rounded-lg py-4">
+            <div className="px-4 border-b">
+                <ul className="flex flex-col justify-center items-center">
+                    <li className="w-full mb-1">
+                        <NavLink to='/' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
+                            <FaHome className="text-blue-500" />
+                            <span className="text-gray-700">Home</span>
+                        </NavLink>
+                    </li>
+                    <li className="w-full mb-1">
+                        <NavLink to='/' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
+                            <FaBoltLightning className="text-blue-500" />
+                            <span className="text-gray-700">Popular</span>
+                        </NavLink>
+                    </li>
+                    <li className="w-full mb-1">
+                        <NavLink to='/' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
+                            <FaWpexplorer className="text-blue-500" />
+                            <span className="text-gray-700">Explore</span>
+                        </NavLink>
+                    </li>
+                    <li className="w-full mb-1">
+                        <NavLink to='/' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
+                            <IoIosDoneAll className="text-blue-500" />
+                            <span className="text-gray-700">All</span>
+                        </NavLink>
+                    </li>
+                </ul>
             </div>
-        </>
-    )
+            <div className="px-4 mt-4 border-b">
+                <ul className="flex flex-col">
+                    <li className="w-full mb-1">
+                        <NavLink to='/post/create' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
+                            <IoMdAdd size={24} className="text-gray-700 hover:text-blue-600 transition duration-200" />
+
+                            <span className="text-gray-700">Create Post</span>
+                        </NavLink>
+                    </li>
+                    <li className="w-full mb-1">
+                        <NavLink to='/user' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
+                            <CiUser className="text-blue-500" />
+                            <span className="text-gray-700">User</span>
+                        </NavLink>
+                    </li>
+                    <li className="w-full mb-1">
+                        <NavLink to='/' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
+                            <IoMdNotificationsOutline size={24} className="text-blue-500 " />
+                        
+                            <span className="text-gray-700">Notification</span>
+                        </NavLink>
+                    </li>
+
+                </ul>
+            </div>
+            <div className="px-4 mt-4 border-b">
+                <ul className="flex flex-col">
+                    <li className="w-full mb-1">
+                        <NavLink to='/' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
+                            <RiCommunityLine className="text-blue-500" />
+                            <span className="text-gray-700">Communities</span>
+                        </NavLink>
+                    </li>
+                    <li className="w-full mb-1">
+                        <NavLink to='/' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
+                            <FcAdvertising className="text-blue-500" />
+                            <span className="text-gray-700">Advertise</span>
+                        </NavLink>
+                    </li>
+                    <li className="w-full mb-1">
+                        <NavLink to='/' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
+                            <GrHelpBook className="text-blue-500" />
+                            <span className="text-gray-700">Help</span>
+                        </NavLink>
+                    </li>
+                    <li className="w-full mb-1 text-center">
+                        <NavLink to='/' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
+                            <TbUserCog className="text-blue-500" />
+                            <span className="text-gray-700">User Agreement</span>
+                        </NavLink>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    );
 }
 
 export default SideBar;

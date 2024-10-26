@@ -5,7 +5,7 @@ import useAuthStore from "../Store/AuthStore";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-function PostDropdown({commentId}) {
+function CommentDropdown({commentId,onDelete}) {
     const [open, setOpen] = useState(false);
     const token = useAuthStore((state)=>state.token);
     const navigate = useNavigate();
@@ -22,6 +22,7 @@ function PostDropdown({commentId}) {
                 }
             });
             toast.success(response.data.message);
+            onDelete(true);
         } catch (err) {
             toast.error(err.response.data.message);
         }
@@ -39,4 +40,4 @@ function PostDropdown({commentId}) {
     )
 }
 
-export default PostDropdown
+export default CommentDropdown
