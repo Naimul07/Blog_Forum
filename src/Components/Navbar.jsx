@@ -1,13 +1,14 @@
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 import { Link } from "react-router-dom";
+import ProfileDropdown from "./ProfileDropDown";
 
 function Navbar() {
   return (
     <div className="py-4 px-6 sm:px-0 fixed top-0 w-full border-b bg-white shadow-sm z-10">
       <nav className="container mx-auto flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-blue-600">BlogForum</h1>
+         <Link to='/'> <h1 className="text-2xl font-bold text-blue-600">BlogForum</h1></Link>
         </div>
         <div className="flex items-center gap-4">
           <div className="hidden sm:block">
@@ -25,7 +26,7 @@ function Navbar() {
             <IoMdAdd size={24} className="text-gray-700 hover:text-blue-600 transition duration-200" />
           </Link>
           <div className="hidden sm:flex items-center bg-gray-200 rounded-full px-3 py-1 text-gray-700 font-medium hover:bg-gray-300 cursor-pointer transition duration-200">
-            user
+           <ProfileDropdown/>
           </div>
         </div>
       </nav>

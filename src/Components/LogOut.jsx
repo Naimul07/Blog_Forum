@@ -17,7 +17,7 @@ function LogOut() {
       });
       clearAuth();
       toast.success(response.data.message);
-      navigate('/');
+      navigate('/login');
     } catch (err) {
       toast.error(err.response.data.message);
     } 
