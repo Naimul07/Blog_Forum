@@ -72,7 +72,7 @@ User Post,Comment(Edit,Del)
 
 **Vite:** For fast build and hot-reload development
 
-**Backend** Laravel is used to develop Api.Change
+**Backend** Laravel is used to develop Api.
 ## Run Locally
 
 
