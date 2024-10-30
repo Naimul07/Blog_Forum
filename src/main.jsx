@@ -16,6 +16,7 @@ import SecondLayout from './Layout/SecondLayout.jsx'
 import EditPost from './Pages/EditPost.jsx'
 import { PostLoader } from './Loader/PostLoader.jsx'
 import ProfilePage from './Pages/ProfilePage.jsx'
+import SearchPage from './Pages/SearchPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       {
         path:'user',
         element:<ProfilePage/>
+      },
+      {
+        path:'search',
+        element: <SearchPage/>
       }
     ]
   },

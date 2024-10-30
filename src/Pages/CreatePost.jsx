@@ -14,9 +14,12 @@ function CreatePost() {
   const navigate = useNavigate();
   async function onSubmit(data) {
     const formData = new FormData();
-    formData.append('image', data.image[0]);
+    // formData.append('image', data.image[0]);
     formData.append('title', data.title);
     formData.append('description', data.post);
+    if (data.image && data.image[0]) {
+      formData.append('image', data.image[0]);
+    } 
     setLoading(true);
     try {
       const response = await axios.post('/Api/post',
