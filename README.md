@@ -15,6 +15,35 @@ I'm a full-stack developer with specialized expertise in React.js and Laravel, c
 This is the frontend of a BlogForum website built using React. The backend API is developed with Laravel. User can share their thought or ask help to solve problem.
 
 
+## Features
+
+- User Authentication (Sign up, Login, Email verification,Reset Password)
+- Create, edit, and delete posts 
+- Comment on posts with threaded replies
+- AutoComplete SearchBar
+- Likes
+- User profile(where one can see their post and comments and replies and also can delete and edit them)
+
+
+
+## Tech Stack
+
+**React:** JavaScript library for building the user interface
+
+**React Router:** For client-side routing
+
+**Zustand:** For state management
+
+**Axios:** For making HTTP requests to the backend 
+
+**Tailwind CSS:** For styling the components 
+
+**React Hook Form:** For form validation and handling
+
+**Vite:** For fast build and hot-reload development
+
+**Backend** Laravel is used to develop Api.
+
 ## Screenshots
 HomePage
 
@@ -45,34 +74,6 @@ User Post,Comment(Edit,Del)
 ![User Post,Comment{Edit,Del}](https://github.com/Naimul07/Project_picture/blob/main/Post_del.jpg?raw=true)
 ![Create Post](https://github.com/Naimul07/Project_picture/blob/main/Create.jpg?raw=true)
 
-## Features
-
-- User Authentication (Sign up, Login, Email verification,Reset Password)
-- Create, edit, and delete posts 
-- Comment on posts with threaded replies
-- AutoComplete SearchBar
-- Likes
-- User profile(where one can see their post and comments and replies and also can delete and edit them)
-
-
-
-## Tech Stack
-
-**React:** JavaScript library for building the user interface
-
-**React Router:** For client-side routing
-
-**Zustand:** For state management
-
-**Axios:** For making HTTP requests to the backend 
-
-**Tailwind CSS:** For styling the components 
-
-**React Hook Form:** For form validation and handling
-
-**Vite:** For fast build and hot-reload development
-
-**Backend** Laravel is used to develop Api.
 ## Run Locally
 
 

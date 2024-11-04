@@ -14,6 +14,7 @@ function Comment({ postId }) {
   const token = useAuthStore((state) => state.token);
   const comment = useCommentStore((state)=>state.comments)
   const addReply = useCommentStore((state)=>state.addReply)
+  
   const handleClick = (id) => {
     setActiveReplyId((prevId) => (prevId === id ? null : id));
   };
