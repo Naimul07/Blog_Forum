@@ -4,14 +4,16 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import useAuthStore from "../Store/AuthStore";
+import useCommentStore from "../Store/CommentStore";
 
-function Comment({ comment, postId,onNewComment }) {
+function Comment({ postId }) {
   const [activeReplyId, setActiveReplyId] = useState(null);
   const { handleSubmit, reset, register, formState: { errors } } = useForm();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const token = useAuthStore((state) => state.token);
-
+  const comment = useCommentStore((state)=>state.comments)
+  const addReply = useCommentStore((state)=>state.addReply)
   const handleClick = (id) => {
     setActiveReplyId((prevId) => (prevId === id ? null : id));
   };
@@ -33,7 +35,14 @@ function Comment({ comment, postId,onNewComment }) {
         }
       );
       toast.success(response.data.message);
-      onNewComment(response.data.message);
+      const reply = {
+        ...response.data.reply,
+        user:{
+          firstName: useAuthStore.getState().user.firstName, 
+          lastName: useAuthStore.getState().user.lastName 
+        }
+      }
+      addReply(id,reply);
       reset();
     } catch (err) {
       setError(err);
@@ -41,7 +50,7 @@ function Comment({ comment, postId,onNewComment }) {
       setLoading(false);
     }
   };
-
+  // console.log(comment)
   return (
     <div className="w-full mx-auto p-4 rounded-lg">
       <div className=" p-4 rounded-md w-full">
@@ -49,13 +58,16 @@ function Comment({ comment, postId,onNewComment }) {
           comment.map((item) => (
             <div className="mb-4 p-3" key={item.id}>
               <div className="flex items-start space-x-4">
-                <div className="w-10 h-10 rounded-full bg-blue-300"></div>
+                <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+                  {/* Placeholder for user avatar */}
+                  <span className="text-gray-500 font-semibold">{item.user.firstName[0]}{item.user.lastName[0]}</span>
+                </div>
                 <div className="flex-1">
-                  <h3 className="font-medium text-gray-800">John Doe</h3>
-                  <p className="text-gray-700 mt-1">{item.comment}</p>
+                  <h3 className="font-bold"> {item.user.firstName} {item.user.lastName} </h3>
+                  <p className="text-gray-600 mt-1">{item.comment}</p>
                   <div className="flex space-x-4 text-sm text-gray-500 mt-2">
                     <button
-                      className="hover:text-blue-600 text-blue-500 font-medium"
+                      className="hover:text-blue-600 hover:underline text-blue-500 font-medium"
                       onClick={() => handleClick(item.id)}
                     >
                       Reply

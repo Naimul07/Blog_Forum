@@ -4,14 +4,16 @@ import { useForm } from "react-hook-form"
 import useAuthStore from "../Store/AuthStore"
 import toast from "react-hot-toast";
 import CircleLoader  from "react-spinners/CircleLoader";
+import useCommentStore from "../Store/CommentStore";
 
 
 
-function CreateComment({ postId,onNewComment }) {
+function CreateComment({ postId }) {
   const { handleSubmit,reset, register, formState: { errors } } = useForm();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const token = useAuthStore((state) => state.token);
+  const addComment = useCommentStore((state)=>state.addComment);
 
   async function onSubmit(data) {
     setLoading(true);
@@ -25,8 +27,15 @@ function CreateComment({ postId,onNewComment }) {
             Authorization: `Bearer ${token}`,
           }
         });
+        const comment = {
+          ...response.data.comment,
+          user:{
+            firstName: useAuthStore.getState().user.firstName, 
+            lastName: useAuthStore.getState().user.lastName
+          }
+        }
+        addComment(comment);
         toast.success(response.data.message);
-        onNewComment(response.data.message);
         reset();
     }
     catch (err) {

@@ -7,6 +7,7 @@ import useAuthStore from "../Store/AuthStore";
 import { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import toast from "react-hot-toast";
+import useCommentStore from "../Store/CommentStore";
 
 function PostPage() {
   const [loading, setLoading] = useState(false);
@@ -14,8 +15,9 @@ function PostPage() {
   const token = useAuthStore((state) => state.token);
   const { id } = useParams();
   const isVerified = useAuthStore.getState().getUserVerified();
-  const [comments, setComments] = useState([]);
+  // const [comments, setComments] = useState([]);
   const navigate = useNavigate();
+  const setComments = useCommentStore((state)=>state.setComments);
   useEffect(() => {
     const fetchPost = async () => {
       setLoading(true);
@@ -26,7 +28,7 @@ function PostPage() {
           },
         });
         setPost(response.data);
-
+        setComments(response.data.comments)
       } catch (error) {
         // console.log(error)
         toast.error('page not found');
@@ -38,11 +40,9 @@ function PostPage() {
     }
     fetchPost();
 
-  }, [id, comments]);
+  }, [id]);
 
-  const handleNewComment = (newComment) => {
-    setComments((prevComments) => [...prevComments, newComment]);
-  };
+  
 
   return (
     <>
@@ -56,11 +56,11 @@ function PostPage() {
               </div>
               <div className="px-4 mt-4 mb-14">
                 {
-                  isVerified ? (<CreateComment postId={id} onNewComment={handleNewComment} />) : ('')
+                  isVerified ? (<CreateComment postId={id}  />) : ('')
                 }
               </div>
               <div className="px-4 mt-6">
-                <Comment comment={post.comments} postId={id} onNewComment={handleNewComment}/>
+                <Comment postId={id} />
               </div>
             </div>
             <div className="hidden md:col-span-1 h-screen">

@@ -86,10 +86,10 @@ function SearchBar() {
                     {results.map((item) => (
                         <li
                             key={item.id}
-                            onClick={() => handleClick(item.title)}
+                            onClick={() => handleClick(item.description.slice(0,100))}
                             className="px-4 py-2 hover:bg-blue-50 cursor-pointer transition"
                         >
-                            {item.title}
+                            {item.description.slice(0,100)}
                         </li>
                     ))}
                 </ul>
