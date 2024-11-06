@@ -30,6 +30,8 @@ This is the frontend of a BlogForum website built using React. The backend API i
 
 **React:** JavaScript library for building the user interface
 
+**TanStack Query:** For data fetching, caching, and server-state management.
+
 **React Router:** For client-side routing
 
 **Zustand:** For state management
@@ -45,6 +47,7 @@ This is the frontend of a BlogForum website built using React. The backend API i
 **Backend** Laravel is used to develop Api.
 
 ## Screenshots
+
 HomePage
 
 ![HomePage](https://github.com/Naimul07/Project_picture/blob/main/HomePage.jpg?raw=true)

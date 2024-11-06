@@ -17,7 +17,10 @@ import EditPost from './Pages/EditPost.jsx'
 import { PostLoader } from './Loader/PostLoader.jsx'
 import ProfilePage from './Pages/ProfilePage.jsx'
 import SearchPage from './Pages/SearchPage.jsx'
+import { QueryClient, QueryClientProvider } from 'react-query'
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
+const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
@@ -61,20 +64,20 @@ const router = createBrowserRouter([
             element: <PostPage />
           },
           {
-            path:"edit/:id",
-            element:<EditPost/>,
-            loader:PostLoader
+            path: "edit/:id",
+            element: <EditPost />,
+            loader: PostLoader
           },
 
         ]
       },
       {
-        path:'user',
-        element:<ProfilePage/>
+        path: 'user',
+        element: <ProfilePage />
       },
       {
-        path:'search',
-        element: <SearchPage/>
+        path: 'search',
+        element: <SearchPage />
       }
     ]
   },
@@ -91,6 +94,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+    </QueryClientProvider>
   </React.StrictMode>
 )

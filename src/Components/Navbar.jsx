@@ -28,7 +28,7 @@ function Navbar() {
         <div className="flex items-center space-x-4">
           <Link to="/notifications" className="relative flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-150">
             <IoMdNotificationsOutline size={24} />
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+            {/* <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span> */}
           </Link>
 
           <Link to="/post/create" className="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-150">

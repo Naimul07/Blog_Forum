@@ -8,55 +8,68 @@ import { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import toast from "react-hot-toast";
 import useCommentStore from "../Store/CommentStore";
+import { useQuery } from "react-query";
 
 function PostPage() {
-  const [loading, setLoading] = useState(false);
-  const [post, setPost] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const [post, setPost] = useState([]);
   const token = useAuthStore((state) => state.token);
   const { id } = useParams();
   const isVerified = useAuthStore.getState().getUserVerified();
-  // const [comments, setComments] = useState([]);
-  const navigate = useNavigate();
+  // // const [comments, setComments] = useState([]);
+  // const navigate = useNavigate();
   const setComments = useCommentStore((state)=>state.setComments);
-  useEffect(() => {
-    const fetchPost = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(`/Api/post/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setPost(response.data);
-        setComments(response.data.comments)
-      } catch (error) {
-        // console.log(error)
-        toast.error('page not found');
-        navigate('/')
-      }
-      finally {
-        setLoading(false);
-      }
-    }
-    fetchPost();
+  // useEffect(() => {
+  //   const fetchPost = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await axios.get(`/Api/post/${id}`, {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       });
+  //       setPost(response.data);
+  //       setComments(response.data.comments)
+  //     } catch (error) {
+  //       // console.log(error)
+  //       toast.error('page not found');
+  //       navigate('/')
+  //     }
+  //     finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  //   fetchPost();
 
-  }, [id]);
-
+  // }, [id]);
+  const fetchSinglePost = async () => {
+    const response = await axios.get(`/Api/post/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data
+  }
+  const {data,isLoading} = useQuery(['post'],fetchSinglePost);
   
-
+  useEffect(() => {
+    if (data && data.comments) {
+      setComments(data.comments);
+    }
+  }, [data, setComments]);
   return (
     <>
       {
-        loading ? (
-        <div className="flex items-center justify-center h-screen"><ClipLoader size={100}/></div>) : (
+        isLoading ? (
+          <div className="flex items-center justify-center h-screen"><ClipLoader size={100} /></div>) : (
           <div className="grid grid-cols-1 md:grid-cols-5">
             <div className="col-span-1 md:col-span-4">
               <div>
-                <Post postItem={post} />
+                <Post postItem={data} />
               </div>
               <div className="px-4 mt-4 mb-14">
                 {
-                  isVerified ? (<CreateComment postId={id}  />) : ('')
+                  isVerified ? (<CreateComment postId={id} />) : ('')
                 }
               </div>
               <div className="px-4 mt-6">

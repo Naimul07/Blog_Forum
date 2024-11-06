@@ -1,46 +1,64 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import useAuthStore from "../Store/AuthStore"
 import axios from "axios";
 import PostItem from "./PostItem";
 import ClipLoader from "react-spinners/ClipLoader";
-
+import { useQuery } from "react-query";
+// import {fetchPosts} from "../Api/FetchDataApi"
 
 function Posts() {
-    const [error, setError] = useState("");
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(false);
+
+    // const [error, setError] = useState("");
+    // const [posts, setPosts] = useState([]);
+    // const [loading, setLoading] = useState(false);
     const token = useAuthStore((state) => state.token);
+    
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const fetchPosts = async () => {
-            setLoading(true);
-            try {
-                const response = await axios.get('/Api/post?page=1', {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    }
-                });
-                console.log(response);
-                setPosts(response.data.data);
-            }
-            catch (err) {
-                setError(err);
-            }
-            finally {
-                setLoading(false);
-            }
+    //     const fetchPosts = async () => {
+    //         setLoading(true);
+    //         try {
+    //             const response = await axios.get('/Api/post?page=1', {
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`,
+    //                 }
+    //             });
+    //             console.log(response);
+    //             setPosts(response.data.data);
+    //         }
+    //         catch (err) {
+    //             setError(err);
+    //         }
+    //         finally {
+    //             setLoading(false);
+    //         }
 
-        }
-        fetchPosts()
-    }, []);
+    //     }
+    //     fetchPosts()
+    // }, []);
+
+    const fetchPosts = async () => {
+
+        
+        
+        const response = await axios.get('/Api/post?page=1', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
+        // console.log(response.data);
+        return response.data.data;
+    }
+    //i will use query to fetch data
+   const{data:posts,isLoading}= useQuery(['posts'],fetchPosts)
 
     return (
         <>
-            <div>
+             <div>
                 <div>
                     <div>
-                        {loading ? (
+                        {isLoading ? (
                     <div className="flex justify-center items-center h-screen">
 
                             <ClipLoader size={100} />
@@ -56,7 +74,7 @@ function Posts() {
                         )}
                     </div>
                 </div>
-            </div>
+            </div> 
         </>
     )
 }
