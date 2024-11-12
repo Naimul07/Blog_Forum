@@ -18,19 +18,17 @@ import { PostLoader } from './Loader/PostLoader.jsx'
 import ProfilePage from './Pages/ProfilePage.jsx'
 import SearchPage from './Pages/SearchPage.jsx'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import Protected from './Layout/Protected.jsx'
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-const queryClient = new QueryClient();
+
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainlayOut />,
     errorElement: <ErrorPage />,
     children: [
-      {
-        path: "",
-        element: <HomePage />
-      },
       {
         path: "login",
         element: <Login />
@@ -40,58 +38,60 @@ const router = createBrowserRouter([
         element: <Register />
       },
       {
-        path: "email_verification",
-        element: <EmailVerify />
-      },
-      {
-        path: "password/reset",
-        element: <ResetPassword />
-      },
-      {
-        path: "password/resetEmail",
-        element: <ForgetPassResent />
-      },
-      {
-        path: 'post',
-        element: <SecondLayout />,
+        path: "",
+        element: <Protected />,
         children: [
           {
-            path: "create",
-            element: <CreatePost />
-          },
-          {
-            path: ":id",
-            element: <PostPage />
-          },
-          {
-            path: "edit/:id",
-            element: <EditPost />,
-            loader: PostLoader
+            path: "",
+            element: <HomePage />
           },
 
+          {
+            path: "email_verification",
+            element: <EmailVerify />
+          },
+          {
+            path: "password/reset",
+            element: <ResetPassword />
+          },
+          {
+            path: "password/resetEmail",
+            element: <ForgetPassResent />
+          },
+          {
+            path: 'post',
+            element: <SecondLayout />,
+            children: [
+              {
+                path: "create",
+                element: <CreatePost />
+              },
+              {
+                path: ":id",
+                element: <PostPage />
+              },
+              {
+                path: "edit/:id",
+                element: <EditPost />,
+                loader: PostLoader
+              },
+            ]
+          },
+          {
+            path: 'user',
+            element: <ProfilePage />
+          },
+          {
+            path: 'search',
+            element: <SearchPage />
+          }
         ]
-      },
-      {
-        path: 'user',
-        element: <ProfilePage />
-      },
-      {
-        path: 'search',
-        element: <SearchPage />
       }
+
     ]
   },
-  /* {
-    path:"/login",
-    element:<Login/>
-  },
-  {
-    path:"/register",
-    element:<Register/>
-  } */
-])
-
-
+]);
+const queryClient = new QueryClient();
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
@@ -99,4 +99,4 @@ createRoot(document.getElementById('root')).render(
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   </React.StrictMode>
-)
+);
