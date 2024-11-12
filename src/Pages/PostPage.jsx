@@ -50,13 +50,9 @@ function PostPage() {
     });
     return response.data
   }
-  const {data,isLoading} = useQuery(['post'],fetchSinglePost);
+  const {data,isLoading} = useQuery(['post',id],fetchSinglePost);
   
-  useEffect(() => {
-    if (data && data.comments) {
-      setComments(data.comments);
-    }
-  }, [data, setComments]);
+
   return (
     <>
       {
@@ -73,7 +69,7 @@ function PostPage() {
                 }
               </div>
               <div className="px-4 mt-6">
-                <Comment postId={id} />
+                <Comment postId={id} comment ={data.comments} />
               </div>
             </div>
             <div className="hidden md:col-span-1 h-screen">

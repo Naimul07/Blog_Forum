@@ -1,48 +1,60 @@
-import { useEffect, useState } from "react";
+
 import useAuthStore from "../Store/AuthStore";
 import axios from "axios";
 import PostDropdown from "../Components/PostDropdown";
 import ClipLoader from "react-spinners/ClipLoader";
 import CommentDropdown from "../Components/CommentDropdown";
+import { useQuery } from "react-query";
 
 const ProfilePage = () => {
   const token = useAuthStore((state) => state.token);
   const user = useAuthStore((state) => state.user);
-  const [profile, setProfile] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  // const [profile, setProfile] = useState({});
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(`/Api/profile/user/${user.id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setProfile(response.data);
-      } catch (err) {
-        setError(err.response?.data?.error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await axios.get(`/Api/profile/user/${user.id}`, {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       });
+  //       setProfile(response.data);
+  //     } catch (err) {
+  //       setError(err.response?.data?.error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+  // // Handler to remove deleted comment
+  // const handleDeleteComment = (commentId) => {
+  //   setProfile((prevProfile) => ({
+  //     ...prevProfile,
+  //     comments: prevProfile.comments.filter((comment) => comment.id !== commentId),
+  //   }));
+  // };
 
-  // Handler to remove deleted comment
-  const handleDeleteComment = (commentId) => {
-    setProfile((prevProfile) => ({
-      ...prevProfile,
-      comments: prevProfile.comments.filter((comment) => comment.id !== commentId),
-    }));
-  };
+  //using react query
+  const profileData = async () => {
+    const response = await axios.get(`/Api/profile/user/${user.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  }
+
+  const {data:profile,isLoading}= useQuery(['profile',user.id],profileData);
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-gray-100 min-h-screen pt-20">
       {/* Profile Info Section */}
-      {loading ? (
+      {isLoading ? (
         <div className="flex items-center justify-center h-screen">
           <ClipLoader size={100} />
         </div>
@@ -96,7 +108,7 @@ const ProfilePage = () => {
                   <div key={comment.id} className="p-4 bg-gray-50 rounded-lg shadow mb-4">
                     <div className="flex justify-between">
                       <p className="text-gray-700">{comment.comment}</p>
-                      <CommentDropdown commentId={comment.id} onDelete={handleDeleteComment} />
+                      <CommentDropdown commentId={comment.id} userId = {user.id} />
                     </div>
                     <div className="mt-2 text-gray-500 text-sm">
                       Commented on: {new Date(comment.created_at).toLocaleDateString()}

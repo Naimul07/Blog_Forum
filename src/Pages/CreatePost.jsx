@@ -34,7 +34,7 @@ function CreatePost() {
       toast.success(response.data.message);
         navigate(`/post/${response.data.post.id}`);
     } catch (err) {
-      setError(err.response);
+      setError(err.response.data);
       // console.log(error);
     }
     finally {
@@ -66,14 +66,15 @@ function CreatePost() {
             <label htmlFor="post" className="block mb-2 text-sm font-semibold ">
               Write Post
             </label>
-            <textarea
+            
+             <textarea
               {...register('post', {
                 required: 'Post description is required',
               })}
-              rows="6"
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+              rows="16"
+              className="block whitespace-pre-wrap p-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Write your Post here..."
-            ></textarea>
+            ></textarea> 
             {errors.post && <span className="text-red-500 text-xs mt-1 input-error">{errors.post.message}</span>}
 
           </div>
@@ -122,6 +123,9 @@ function CreatePost() {
             <ClipLoader color="#ffffff" loading={loading} size={20} />
           ) : ('Submit')}</button>
         </form>
+        {error && <span className="text-red-500 text-xs mt-1 input-error">{error.message}
+        </span>}
+
       </div>
     </>
   )

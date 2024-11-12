@@ -4,53 +4,82 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import useAuthStore from "../Store/AuthStore";
-import useCommentStore from "../Store/CommentStore";
 
-function Comment({ postId }) {
+import { useMutation, useQueryClient } from "react-query";
+
+function Comment({ postId,comment }) {
   const [activeReplyId, setActiveReplyId] = useState(null);
   const { handleSubmit, reset, register, formState: { errors } } = useForm();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
   const token = useAuthStore((state) => state.token);
-  const comment = useCommentStore((state)=>state.comments)
-  const addReply = useCommentStore((state)=>state.addReply)
-  
+
+
   const handleClick = (id) => {
     setActiveReplyId((prevId) => (prevId === id ? null : id));
   };
 
-  const onSubmit = async (id, data) => {
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        '/Api/post/comments/reply',
-        {
-          reply: data.message,
-          post_id: postId,
-          comment_id: id,
+  // const onSubmit = async (id, data) => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await axios.post(
+  //       '/Api/post/comments/reply',
+  //       {
+  //         reply: data.message,
+  //         post_id: postId,
+  //         comment_id: id,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  //     toast.success(response.data.message);
+  //     const reply = {
+  //       ...response.data.reply,
+  //       user: {
+  //         firstName: useAuthStore.getState().user.firstName,
+  //         lastName: useAuthStore.getState().user.lastName
+  //       }
+  //     }
+  //     addReply(id, reply);
+  //     reset();
+  //   } catch (err) {
+  //     setError(err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
+  // react query
+  function onSubmit(id,data){
+    mutate({id,data})
+  }
+  const addReply = async ({id,data}) => {
+    const response = await axios.post(
+      '/Api/post/comments/reply',
+      {
+        reply: data.message,
+        post_id: postId,
+        comment_id: id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      toast.success(response.data.message);
-      const reply = {
-        ...response.data.reply,
-        user:{
-          firstName: useAuthStore.getState().user.firstName, 
-          lastName: useAuthStore.getState().user.lastName 
-        }
       }
-      addReply(id,reply);
+    );
+    return response.data;
+  }
+  const {mutate,isLoading} = useMutation(addReply,{
+    onSuccess:(data)=>{
+      queryClient.invalidateQueries(['post'],postId),
+      toast.success(data.message),
       reset();
-    } catch (err) {
-      setError(err);
-    } finally {
-      setLoading(false);
     }
-  };
+  })
+
   // console.log(comment)
   return (
     <div className="w-full mx-auto p-4 rounded-lg">
@@ -109,7 +138,7 @@ function Comment({ postId }) {
                     type="submit"
                     className="mt-2 px-4 py-1.5 text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-md"
                   >
-                    {loading ? "Loading..." : "Submit"}
+                    {isLoading ? "Loading..." : "Submit"}
                   </button>
                 </form>
               )}

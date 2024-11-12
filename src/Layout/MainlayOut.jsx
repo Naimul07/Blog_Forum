@@ -12,6 +12,7 @@ function MainlayOut() {
       <Navbar />
       <Outlet />
       {/* <Footer /> */}
+
     </>
   )
 }
