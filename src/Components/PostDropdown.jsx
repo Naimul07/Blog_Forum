@@ -4,7 +4,7 @@ import { HiDotsVertical } from "react-icons/hi";
 import useAuthStore from "../Store/AuthStore";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 function PostDropdown({postId}) {
     const [open, setOpen] = useState(false);
@@ -42,7 +42,8 @@ function PostDropdown({postId}) {
         });
         return response.data;
     }
-    const {mutate,isLoading} = useMutation(deleteData,{
+    const {mutate,isPending} = useMutation({
+        mutationFn:deleteData,
         onSuccess:(data)=>{
             toast.success(data.message);
             queryClient.invalidateQueries(['post',postId])

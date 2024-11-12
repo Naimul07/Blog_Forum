@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import toast from "react-hot-toast";
-import { useMutation, useQueryClient } from "react-query";
 import useAuthStore from "../Store/AuthStore";
 import axios from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 function CommentDropdown({ commentId,userId }) {
   const [open, setOpen] = useState(false);
@@ -19,7 +19,8 @@ function CommentDropdown({ commentId,userId }) {
     return response.data;
   };
 
-  const { mutate } = useMutation(deleteData, {
+  const { mutate } = useMutation({
+    mutationFn:deleteData, 
     onSuccess: (data) => {
       toast.success(data.message);
       queryClient.invalidateQueries(['profile',userId]);

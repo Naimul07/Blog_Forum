@@ -22,13 +22,13 @@ function SideBar() {
                         </NavLink>
                     </li>
                     <li className="w-full mb-1">
-                        <NavLink to='/' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
+                        <NavLink to='/popular' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
                             <FaBoltLightning className="text-blue-500" />
                             <span className="text-gray-700">Popular</span>
                         </NavLink>
                     </li>
                     <li className="w-full mb-1">
-                        <NavLink to='/' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
+                        <NavLink to='/explore' className="flex items-center justify-center space-x-3 py-3 px-2 rounded-md hover:bg-blue-100 transition duration-150">
                             <FaWpexplorer className="text-blue-500" />
                             <span className="text-gray-700">Explore</span>
                         </NavLink>

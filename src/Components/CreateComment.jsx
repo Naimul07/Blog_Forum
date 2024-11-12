@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form"
 import useAuthStore from "../Store/AuthStore"
 import toast from "react-hot-toast";
 import CircleLoader from "react-spinners/CircleLoader";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 // import useCommentStore from "../Store/CommentStore";
-import { useMutation, useQueryClient } from "react-query";
 
 
 
@@ -64,7 +64,8 @@ function CreateComment({ postId }) {
     mutate(data);
   }
 
-  const {mutate,data,isLoading}= useMutation(addData,{
+  const {mutate,isPending}= useMutation({
+    mutationFn:addData,
     onSuccess:(data)=>{
       queryClient.invalidateQueries(['post',postId]),
       toast.success(data.message),
@@ -92,7 +93,7 @@ function CreateComment({ postId }) {
           ></textarea>
           {errors.message && <span className="text-red-500 text-xs mt-1 input-error">{errors.message.message}</span>}
 
-          <button type='submit' className='mt-2 float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none'>{isLoading ? (<CircleLoader />) : ('Submit')}</button>
+          <button type='submit' className='mt-2 float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none'>{isPending ? (<CircleLoader />) : ('Submit')}</button>
         </div>
       </form>
     </>

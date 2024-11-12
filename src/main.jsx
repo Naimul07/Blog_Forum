@@ -17,8 +17,11 @@ import EditPost from './Pages/EditPost.jsx'
 import { PostLoader } from './Loader/PostLoader.jsx'
 import ProfilePage from './Pages/ProfilePage.jsx'
 import SearchPage from './Pages/SearchPage.jsx'
-import { QueryClient, QueryClientProvider } from 'react-query'
 import Protected from './Layout/Protected.jsx'
+import Popular from './Pages/Popular.jsx'
+import Explore from './Pages/Explore.jsx'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 
@@ -78,6 +81,20 @@ const router = createBrowserRouter([
             ]
           },
           {
+            path: '',
+            element: <SecondLayout />,
+            children:[
+              {
+                path:'popular',
+                element:<Popular/>
+              },
+              {
+                path:'explore',
+                element:<Explore/>
+              }
+            ]
+          },
+          {
             path: 'user',
             element: <ProfilePage />
           },
@@ -85,18 +102,21 @@ const router = createBrowserRouter([
             path: 'search',
             element: <SearchPage />
           }
+
         ]
       }
 
     ]
   },
 ]);
+
 const queryClient = new QueryClient();
+
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>
 );

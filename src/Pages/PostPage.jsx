@@ -8,7 +8,8 @@ import { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import toast from "react-hot-toast";
 import useCommentStore from "../Store/CommentStore";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
+
 
 function PostPage() {
   // const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ function PostPage() {
   const isVerified = useAuthStore.getState().getUserVerified();
   // // const [comments, setComments] = useState([]);
   // const navigate = useNavigate();
-  const setComments = useCommentStore((state)=>state.setComments);
+  const setComments = useCommentStore((state) => state.setComments);
   // useEffect(() => {
   //   const fetchPost = async () => {
   //     setLoading(true);
@@ -50,13 +51,16 @@ function PostPage() {
     });
     return response.data
   }
-  const {data,isLoading} = useQuery(['post',id],fetchSinglePost);
-  
+  const { data, isPending } = useQuery({
+    queryKey: ['post', id], 
+    queryFn: fetchSinglePost
+  });
+
 
   return (
     <>
       {
-        isLoading ? (
+        isPending ? (
           <div className="flex items-center justify-center h-screen"><ClipLoader size={100} /></div>) : (
           <div className="grid grid-cols-1 md:grid-cols-5">
             <div className="col-span-1 md:col-span-4">
@@ -69,7 +73,7 @@ function PostPage() {
                 }
               </div>
               <div className="px-4 mt-6">
-                <Comment postId={id} comment ={data.comments} />
+                <Comment postId={id} comment={data.comments} />
               </div>
             </div>
             <div className="hidden md:col-span-1 h-screen">

@@ -4,10 +4,10 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import useAuthStore from "../Store/AuthStore";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { useMutation, useQueryClient } from "react-query";
 
-function Comment({ postId,comment }) {
+function Comment({ postId, comment }) {
   const [activeReplyId, setActiveReplyId] = useState(null);
   const { handleSubmit, reset, register, formState: { errors } } = useForm();
   const queryClient = useQueryClient();
@@ -53,10 +53,10 @@ function Comment({ postId,comment }) {
 
 
   // react query
-  function onSubmit(id,data){
-    mutate({id,data})
+  function onSubmit(id, data) {
+    mutate({ id, data })
   }
-  const addReply = async ({id,data}) => {
+  const addReply = async ({ id, data }) => {
     const response = await axios.post(
       '/Api/post/comments/reply',
       {
@@ -72,11 +72,12 @@ function Comment({ postId,comment }) {
     );
     return response.data;
   }
-  const {mutate,isLoading} = useMutation(addReply,{
-    onSuccess:(data)=>{
-      queryClient.invalidateQueries(['post'],postId),
-      toast.success(data.message),
-      reset();
+  const { mutate, isLoading } = useMutation({
+    mutationFn: addReply,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(['post'], postId),
+        toast.success(data.message),
+        reset();
     }
   })
 

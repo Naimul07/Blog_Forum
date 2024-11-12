@@ -4,7 +4,8 @@ import axios from "axios";
 import PostDropdown from "../Components/PostDropdown";
 import ClipLoader from "react-spinners/ClipLoader";
 import CommentDropdown from "../Components/CommentDropdown";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
+
 
 const ProfilePage = () => {
   const token = useAuthStore((state) => state.token);
@@ -49,7 +50,10 @@ const ProfilePage = () => {
     return response.data;
   }
 
-  const {data:profile,isLoading}= useQuery(['profile',user.id],profileData);
+  const { data: profile, isLoading } = useQuery({
+    queryKey: ['profile', user.id],
+    queryFn: profileData
+  });
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-gray-100 min-h-screen pt-20">
@@ -108,7 +112,7 @@ const ProfilePage = () => {
                   <div key={comment.id} className="p-4 bg-gray-50 rounded-lg shadow mb-4">
                     <div className="flex justify-between">
                       <p className="text-gray-700">{comment.comment}</p>
-                      <CommentDropdown commentId={comment.id} userId = {user.id} />
+                      <CommentDropdown commentId={comment.id} userId={user.id} />
                     </div>
                     <div className="mt-2 text-gray-500 text-sm">
                       Commented on: {new Date(comment.created_at).toLocaleDateString()}

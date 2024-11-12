@@ -3,7 +3,8 @@ import useAuthStore from "../Store/AuthStore"
 import axios from "axios";
 import PostItem from "./PostItem";
 import ClipLoader from "react-spinners/ClipLoader";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
+
 // import {fetchPosts} from "../Api/FetchDataApi"
 
 function Posts() {
@@ -12,7 +13,7 @@ function Posts() {
     // const [posts, setPosts] = useState([]);
     // const [loading, setLoading] = useState(false);
     const token = useAuthStore((state) => state.token);
-    
+
 
     // useEffect(() => {
 
@@ -40,8 +41,8 @@ function Posts() {
 
     const fetchPosts = async () => {
 
-        
-        
+
+
         const response = await axios.get('/Api/post?page=1', {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -51,30 +52,33 @@ function Posts() {
         return response.data.data;
     }
     //i will use query to fetch data
-   const{data:posts,isLoading}= useQuery(['posts'],fetchPosts)
+    const { data: posts, isPending } = useQuery({
+        queryKey: ['posts'],
+        queryFn: fetchPosts,
+    })
 
     return (
         <>
-             <div>
+            <div>
                 <div>
                     <div>
-                        {isLoading ? (
-                    <div className="flex justify-center items-center h-screen">
+                        {isPending ? (
+                            <div className="flex justify-center items-center h-screen">
 
-                            <ClipLoader size={100} />
+                                <ClipLoader size={100} />
                             </div>
                         ) : (
                             <div className="">
-                            {
-                                posts.map((post) => (
-                                    <PostItem key={post.id} postdetails={post} />
-                                ))
-                            }
+                                {
+                                    posts.map((post) => (
+                                        <PostItem key={post.id} postdetails={post} />
+                                    ))
+                                }
                             </div>
                         )}
                     </div>
                 </div>
-            </div> 
+            </div>
         </>
     )
 }
