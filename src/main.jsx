@@ -91,12 +91,12 @@ const router = createBrowserRouter([
               {
                 path:'explore',
                 element:<Explore/>
+              },
+              {
+                path: 'user',
+                element: <ProfilePage />
               }
             ]
-          },
-          {
-            path: 'user',
-            element: <ProfilePage />
           },
           {
             path: 'search',

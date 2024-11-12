@@ -56,7 +56,7 @@ const ProfilePage = () => {
   });
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-100 min-h-screen pt-20">
+    <div className="max-w-4xl lg:max-w-6xl mx-auto p-6 bg-gray-100 min-h-screen ">
       {/* Profile Info Section */}
       {isLoading ? (
         <div className="flex items-center justify-center h-screen">
