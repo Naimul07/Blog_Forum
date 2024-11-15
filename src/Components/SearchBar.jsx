@@ -1,9 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useAuthStore from '../Store/AuthStore';
 import axios from 'axios';
 import { FiSearch } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
+function debounce(func, delay = 1000) {
+    let timer;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            func(...args)
+        }, delay)
+    }
+}
 
 function SearchBar() {
     const token = useAuthStore((state) => state.token);
@@ -12,39 +21,46 @@ function SearchBar() {
     const [isSearching, setIsSearching] = useState(false); // Loading state for search
     const [error, setError] = useState(null); // Error state
     const navigate = useNavigate();
-    useEffect(() => {
+    const fetchResults = useCallback(
+        debounce(async (query) => {
 
-        const fetchData = async () => {
-            if (searchTerm.trim() === '') {
-                setResults([]); 
-                return; 
-            }
-
+            if(query==='')
+                setResults([]);
+            setIsSearching(true);
+            setError(null);
             try {
-                const response = await axios.post('/Api/search', { query: searchTerm }, {
+                const response = await axios.post('/Api/search', { query}, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }
                 });
-                setResults(response.data); 
+                setResults(response.data);
+
             } catch (err) {
                 console.error(err);
+                // setError("An error occurred during the search.");
+            } finally {
+                setIsSearching(false);
             }
-        };
+        }, 500),
+        []
+    );
 
-        fetchData();
+    useEffect(()=>{
+        fetchResults(searchTerm);
+    },[searchTerm,fetchResults])
 
-    }, [searchTerm, token]); 
 
-    function handleSub(e){
+
+    function handleSub(e) {
         e.preventDefault();
-        navigate('/search',{state:{results}});
+        navigate('/search', { state: { results } });
         setResults([]);
     }
 
     function handleClick(title) {
-        setSearchTerm(title); 
-        setResults([]); 
+        setSearchTerm(title);
+        setResults([]);
     }
 
     return (
@@ -60,7 +76,7 @@ function SearchBar() {
                         className="rounded-md focus:outline-none p-2"
                     />
                     <button
-                        
+
                         className="px-4 py-2 bg-blue-500 text-white rounded-md transition-all duration-200 ease-in-out hover:bg-blue-600 focus:ring-2 focus:ring-blue-300"
                     >
                         Go
@@ -86,10 +102,10 @@ function SearchBar() {
                     {results.map((item) => (
                         <li
                             key={item.id}
-                            onClick={() => handleClick(item.description.slice(0,100))}
+                            onClick={() => handleClick(item.description.slice(0, 100))}
                             className="px-4 py-2 hover:bg-blue-50 cursor-pointer transition"
                         >
-                            {item.description.slice(0,100)}
+                            {item.description.slice(0, 100)}
                         </li>
                     ))}
                 </ul>

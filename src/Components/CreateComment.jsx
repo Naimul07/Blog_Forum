@@ -3,9 +3,9 @@ import axios from "axios";
 import { useForm } from "react-hook-form"
 import useAuthStore from "../Store/AuthStore"
 import toast from "react-hot-toast";
-import CircleLoader from "react-spinners/CircleLoader";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // import useCommentStore from "../Store/CommentStore";
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 
@@ -93,7 +93,7 @@ function CreateComment({ postId }) {
           ></textarea>
           {errors.message && <span className="text-red-500 text-xs mt-1 input-error">{errors.message.message}</span>}
 
-          <button type='submit' className='mt-2 float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none'>{isPending ? (<CircleLoader />) : ('Submit')}</button>
+          <button type='submit' className='mt-2 float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none'>{isPending ? (<ClipLoader />) : ('Submit')}</button>
         </div>
       </form>
     </>
